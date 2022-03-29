@@ -10,11 +10,15 @@ header = {
 
 class FlightSearch:
     #This class is responsible for talking to the Flight Search API.
-    def __init__(self, city_name):
-        self.city_name = city_name
-        self.details = {
-            "term": self.city_name,
+    def get_code(self, city_name):
+
+        details = {
+            "term": city_name,
             "locale": "en-US"
         }
-        self.search_response = requests.get(url=flight_endpoint, params=self.details, headers=header)
+        search_response = requests.get(url=flight_endpoint, params=details, headers=header)
+        flight_search_data = search_response.json()
+        details = flight_search_data["locations"]
+        code = details[0]["code"]
+        return code
 
