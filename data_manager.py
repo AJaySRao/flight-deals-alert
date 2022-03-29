@@ -1,9 +1,28 @@
 import requests
 
-s_data_endpoint = "https://api.sheety.co/308a6d2782f06fc8638c04aff1163efc/flightDeals/prices"
+s_data_endpoint = "https://api.sheety.co/3f956a9a288358e3b83a7ce2fa7c271f/flightDeals/prices"
 
 
 class DataManager:
-    #This class is responsible for talking to the Google Sheet.
     def __init__(self):
-        self.response = requests.get(url=s_data_endpoint)
+        self.get_data = {}
+
+    def define_data(self):
+        read_response = requests.get(url=s_data_endpoint)
+        sheet_data = read_response.json()
+        self.get_data = sheet_data["prices"]
+        return self.get_data
+
+    def update_data(self):
+        for city in self.get_data:
+            new_data = {
+                "price": {
+                    "iataCode": city["iataCode"]
+                }
+            }
+            response = requests.put(
+                url=f"{s_data_endpoint}/{city['id']}",
+                json=new_data
+            )
+            # print(response.text)
+
