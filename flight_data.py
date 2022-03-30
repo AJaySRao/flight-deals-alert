@@ -29,5 +29,10 @@ class FlightData:
         flights_slice = flights["data"][:1]
         city = flights_slice[0]["cityTo"]
         fare = flights_slice[0]["price"]
+        out_bound = flights_slice[0]['route'][0]['local_departure']
+        in_bound = flights_slice[0]['route'][1]['local_departure']
+        ob_date = out_bound[0:10]
+        ib_date = in_bound[0:10]
 
-        return f"{city}: £{fare}"
+        # return f"{city}: £{fare}"
+        return city, fare, ob_date, ib_date
