@@ -11,7 +11,6 @@ header = {
 class FlightSearch:
     #This class is responsible for talking to the Flight Search API.
     def get_code(self, city_name):
-
         details = {
             "term": city_name,
             "locale": "en-US"
