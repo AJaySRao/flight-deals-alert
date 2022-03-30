@@ -13,12 +13,12 @@ sheet = data.define_data()
 # print(sheet)
 
 # Filling blank spaces with IATA codes in sheets
-# if sheet[0]["iataCode"] == "":
-#     flight_search = FlightSearch()
-#     for row in sheet:
-#         row["iataCode"] = flight_search.get_code(row["city"])
-#     data.get_data = sheet
-#     data.update_data()
+if sheet[0]["iataCode"] == "":
+    flight_search = FlightSearch()
+    for row in sheet:
+        row["iataCode"] = flight_search.get_code(row["city"])
+    data.get_data = sheet
+    data.update_data()
 
 # Fare
 flight_data = FlightData()
