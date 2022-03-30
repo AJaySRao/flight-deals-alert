@@ -1,3 +1,21 @@
+import os
+from twilio.rest import Client
+
+
 class NotificationManager:
     #This class is responsible for sending notifications with the deal flight details.
-    pass
+
+    def send_msg(self, body):
+        account_sid = os.environ['ACC_SID']
+        auth_token = os.environ['AUTH_TKN']
+        # account_sid = ACC_SID
+        # auth_token = AUTH_TKN
+        client = Client(account_sid, auth_token)
+
+        message = client.messages.create(
+            body=body,
+            from_=os.environ['TWILIO_NUMBER'],
+            to=os.environ['VerifiedNumber']
+        )
+
+        print(message.sid)
