@@ -1,6 +1,5 @@
 #This file will need to use the DataManager,FlightSearch, FlightData,
 #NotificationManager classes to achieve the program requirements.
-import datetime
 from data_manager import DataManager
 from flight_search import FlightSearch
 from flight_data import FlightData
@@ -26,7 +25,10 @@ if sheet[0]["iataCode"] == "":
 # Fare
 notification = NotificationManager()
 for destination in sheet:
-    flight = flight_search.get_flight_details(origin_city=FROM, city_code=destination['iataCode'])
+    flight = flight_search.get_flight_details(
+        origin_city=FROM,
+        city_code=destination['iataCode']
+    )
 
     if flight.price < destination['lowestPrice']:
         notification.send_msg(
@@ -35,6 +37,3 @@ for destination in sheet:
                  f"{flight.destination_city}-{flight.destination_airport}, "
                  f"from {flight.out_date} to {flight.return_date}."
         )
-
-
-# fare_details = flight_data.get_flight_details(city_code="CPT")
