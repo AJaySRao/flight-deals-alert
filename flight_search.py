@@ -2,7 +2,7 @@ import requests
 from flight_data import FlightData
 import datetime
 
-flight_endpoint = "https://tequila-api.kiwi.com/locations/query"
+flight_endpoint = "https://tequila-api.kiwi.com"
 
 header = {
     "apikey": "iWqm-26D0V_tjhwhaMp9bl512ZV8JdX3"
@@ -19,7 +19,7 @@ class FlightSearch:
             "term": city_name,
             "locale": "en-US"
         }
-        search_response = requests.get(url=flight_endpoint, params=details, headers=header)
+        search_response = requests.get(url=f"{flight_endpoint}/locations/query", params=details, headers=header)
         flight_search_data = search_response.json()
         details = flight_search_data["locations"]
         code = details[0]["code"]
@@ -38,7 +38,7 @@ class FlightSearch:
             "nights_in_dst_to": 28,
             "flight_type": "round",
         }
-        search_response = requests.get(url=flight_endpoint, params=details, headers=header)
+        search_response = requests.get(url=f"{flight_endpoint}/v2/search", params=details, headers=header)
         try:
             data = search_response.json()["data"][0]
         except IndexError:
