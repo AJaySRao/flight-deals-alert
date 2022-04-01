@@ -1,6 +1,7 @@
 import requests
 
 s_data_endpoint = "https://api.sheety.co/3f956a9a288358e3b83a7ce2fa7c271f/flightDeals/prices"
+s_endpoint = "https://api.sheety.co/3f956a9a288358e3b83a7ce2fa7c271f/flightDeals/users"
 
 
 class DataManager:
@@ -25,4 +26,8 @@ class DataManager:
                 json=new_data
             )
             # print(response.text)
+
+    def add_data(self, user_details):
+        read_response = requests.post(url=s_endpoint, json=user_details)
+        sheet_data = read_response.json()
 
