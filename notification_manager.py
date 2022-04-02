@@ -19,13 +19,13 @@ class NotificationManager:
 
         print(message.sid)
 
-    def send_email(self, message):
+    def send_email(self, emails, message):
         with smtplib.SMTP("smtp.gmail.com") as connection:
             connection.starttls()
             connection.login(user=os.environ['EMAIL'], password=os.environ['PASS'])
             for email in emails:
                 connection.sendmail(
-                    from_addr=EMAIL,
+                    from_addr=os.environ['EMAIL'],
                     to_addrs=email,
                     msg=message.encode('utf-8')
                     )
