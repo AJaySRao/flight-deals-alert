@@ -17,7 +17,6 @@ SIX_MONTHS = TODAY+datetime.timedelta(days=180)
 class FlightSearch:
     #This class is responsible for talking to the Flight Search API.
 
-
     def get_code(self, city_name):
         details = {
             "term": city_name,
@@ -56,31 +55,7 @@ class FlightSearch:
             try:
                 data = response.json()["data"][0]
             except IndexError:
-                details["max_stopovers"] = 2
-                response = requests.get(
-                    url=f"{flight_endpoint}/v2/search",
-                    headers=header,
-                    params=details
-                )
-                try:
-                    data = response.json()["data"][0]
-                except IndexError:
-                    return None
-                else:
-                    flight_details = FlightData(
-                        price=data["price"],
-                        origin_city=data["route"][0]["cityFrom"],
-                        origin_airport=data["route"][0]["flyFrom"],
-                        destination_city=data["route"][0]["cityTo"],
-                        destination_airport=data["route"][0]["flyTo"],
-                        out_date=data["route"][0]["local_departure"].split("T")[0],
-                        return_date=data["route"][3]["local_departure"].split("T")[0],
-                        stop_over=2,
-                        via_city=data["route"][0]["cityTo"],
-                        via_city2=data["route"][1]["cityTo"]
-                    )
-                    return flight_details
-
+                return None
             else:
                 flight_details = FlightData(
                     price=data["price"],
