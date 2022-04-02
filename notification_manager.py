@@ -23,8 +23,9 @@ class NotificationManager:
         with smtplib.SMTP("smtp.gmail.com") as connection:
             connection.starttls()
             connection.login(user=os.environ['EMAIL'], password=os.environ['PASS'])
-            connection.sendmail(
-                from_addr=os.environ['EMAIL'],
-                to_addrs=os.environ['EMAIL'],
-                msg=message.encode('utf-8')
-            )
+            for email in emails:
+                connection.sendmail(
+                    from_addr=EMAIL,
+                    to_addrs=email,
+                    msg=message.encode('utf-8')
+                    )
