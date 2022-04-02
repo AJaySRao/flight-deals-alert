@@ -36,6 +36,7 @@ for destination in sheet:
     if flight.price < destination['lowestPrice']:
         users = data.get_customer_emails()
         emails = [row["email"] for row in users]
+
         message = f"Subject: New Low Price Alert! \n\nLow price alert! "\
                 f"Only £{flight.price} to fly from {flight.origin_city}-{flight.origin_airport} to "\
                 f"{flight.destination_city}-{flight.destination_airport}, "\
