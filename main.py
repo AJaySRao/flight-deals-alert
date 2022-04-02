@@ -37,12 +37,11 @@ for destination in sheet:
                 f"Only £{flight.price} to fly from {flight.origin_city}-{flight.origin_airport} to "\
                 f"{flight.destination_city}-{flight.destination_airport}, "\
                 f"from {flight.out_date} to {flight.return_date}."
-        if flight.stop_over == 1:
+        if flight.stop_over > 0:
             message += f"\nFlight has {flight.stop_over} stop over, via {flight.via_city}."
-        if flight.stop_over == 2:
-            message += f"\nFlight has {flight.stop_over} stop over, via {flight.via_city} & {flight.via_city2}."
 
-        print(message)
+        # print(message)
+        notification.send_msg(body=message)
 
 
 # flight = flight_search.get_flight_details(
